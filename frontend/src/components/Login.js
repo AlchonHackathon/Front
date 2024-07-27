@@ -1,111 +1,91 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { currentLinkAction } from '../actions';
 import axios from 'axios';
 import './styling/Login.css';
-import ResetPasswordModal from './ResetPasswordModal';
 import ErrorModal from './ErrorModal'; // Import ErrorModal
 
-const Login = ({ currentLinkAction }) => {
-
-  const USER_URL = '/api/users';
-  
-  const initialState = {
-    userId: '',
-    password: '',
-  };
-
-  const [cred, setCred] = useState(initialState);
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
+  const [isCodeSent, setIsCodeSent] = useState(false);
   const [error, setError] = useState(null);
-  const [isResetPasswordModalOpen, setIsResetPasswordModalOpen] = useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false); // Add state for ErrorModal
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCred(prevState => ({
-      ...prevState, [name]: value
-    }));
-  }
+  const handleSendCode = async () => {
+    try {
+        const response = await axios.post('/api/verification/send-code', { email });
+        alert(response.data.message);
+        setIsCodeSent(true);
+    } catch (error) {
+        console.error('Error sending code:', error);
+        setError('Failed to send code: ' + (error.response?.data?.message || error.message));
+        setIsErrorModalOpen(true); // Show ErrorModal
+    }
+};
 
-  const handleSubmit = async (e) => {
+
+  const handleVerifyCode = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${USER_URL}/login`, cred);
+      const response = await axios.post('/api/verification/verify-code', { email, code: verificationCode });
 
-      localStorage.setItem('token', response.data.token);
-      if (response.data.type === 'student') {
-        currentLinkAction('student-dashboard');
-        navigate('/student-dashboard');
-
-      } else if (response.data.type === 'professor') {
-        currentLinkAction('professor-dashboard');
-        navigate('/professor-dashboard');
+      if (response.data.message === 'Verification successful.') {
+        localStorage.setItem('email', email); // Store email or token as needed
+        navigate('/user-dashboard');
+      } else {
+        throw new Error(response.data.message);
       }
-      
-      setCred(initialState);
-
     } catch (error) {
-      console.error('Error logging in:', error);
-      setError('Failed to login: ' + (error.response?.data?.message || error.message));
+      console.error('Error verifying code:', error);
+      setError('Failed to verify code: ' + (error.response?.data?.message || error.message));
       setIsErrorModalOpen(true); // Show ErrorModal
     }
-  }
+  };
 
   return (
-      <div className='Login-wrapper'>
-        <div className='Login-body'>
-          <div className="login-container">
-            <h1 className='login-h1'>Login</h1>
-            <form className='login-form' onSubmit={handleSubmit}>
+    <div className='Login-wrapper'>
+      <div className='Login-body'>
+        <div className="login-container">
+          <h1 className='login-h1'>Login</h1>
+          {!isCodeSent ? (
+            <div className="login-form-group">
+              <label className='login-label login-left' htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <button className='login-button' onClick={handleSendCode}>Send Verification Code</button>
+            </div>
+          ) : (
+            <form className='login-form' onSubmit={handleVerifyCode}>
               <div className="login-form-group">
-                <label className='login-label login-left' htmlFor="userId">ID</label>
+                <label className='login-label login-left' htmlFor="verificationCode">Verification Code</label>
                 <input
                   type="text"
-                  id="userId"
-                  name="userId"
-                  placeholder="Username"
-                  value={cred.userId}
-                  onChange={handleChange}
+                  id="verificationCode"
+                  name="verificationCode"
+                  placeholder="Enter the code sent to your email"
+                  value={verificationCode}
+                  onChange={(e) => setVerificationCode(e.target.value)}
                   required
                 />
-              </div>
-              <div className="login-form-group">
-                <label className='login-label' htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="Password"
-                  value={cred.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="login-form-group-b">
-                <Link className='login-a' to="#" onClick={(e) => {
-                e.preventDefault();
-                setIsResetPasswordModalOpen(true);
-              }}>Forgot Password?</Link>             
               </div>
               <button className='login-button' type="submit">Log In</button>
-              <center><p className='login-p'>New? <Link className='login-a' to="/signup">Create Account</Link></p></center>
             </form>
-            {error && <ErrorModal isOpen={isErrorModalOpen} message={error} onClose={() => setIsErrorModalOpen(false)} />} {/* Use ErrorModal */}
-          </div>
+          )}
+          <center><p className='login-p'>New? <Link className='login-a' to="/signup">Create Account</Link></p></center>
+          {error && <ErrorModal isOpen={isErrorModalOpen} message={error} onClose={() => setIsErrorModalOpen(false)} />} {/* Use ErrorModal */}
         </div>
-        <ResetPasswordModal 
-          isOpen={isResetPasswordModalOpen} 
-          onClose={() => setIsResetPasswordModalOpen(false)} 
-        />
       </div>
+    </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return { currentLinkState: state.currentLinkState }
-}
-
-export default connect(mapStateToProps, { currentLinkAction })(Login);
+export default Login;

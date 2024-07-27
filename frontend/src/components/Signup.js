@@ -19,7 +19,7 @@ const validateInput = (user) => {
 };
 
 const Signup = () => {
-  const USER_URL = '/api/users';
+  const API_URL = 'https://service-testnet.maschain.com/api/wallet/create-user';
 
   const initialState = {
     userId: '',
@@ -36,11 +36,11 @@ const Signup = () => {
   }
 
   const getIDLabel = () => {
-    return user.type === 'admin' ? 'Admin ID:' : 'User ID:';
+    return user.type === 'donator' ? 'Donator ID:' : 'School Name:';
   }
 
   const getIDPlaceholder = () => {
-    return user.type === 'admin' ? 'Enter your admin ID:' : 'Enter your user ID';
+    return user.type === 'donator' ? 'Enter your donator ID:' : 'Enter your school name:';
   }
 
   const handleSubmit = async (e) => {
@@ -53,7 +53,8 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post(`${USER_URL}/signup`, user);
+      //API_URL/api/wallet/create-user
+      const response = await axios.post(`${API_URL}`, user);
       alert(response.data.message);
       setUser(initialState);
     } catch (error) {
@@ -78,13 +79,13 @@ const Signup = () => {
         <label for="type"></label>
         <select 
           className='Signup-user-select' 
-          name="type" 
+          name="type"
           id="type" 
-          onChange = {handleChange} 
+          onChange = {handleChange}
           value = {user.type}>
           <option value="" disabled>Select account type</option>  
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
+          <option value="donator">Donator</option>
+          <option value="school">School</option>
         </select>
 
         <label htmlFor="email">Email:</label>

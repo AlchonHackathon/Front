@@ -9,9 +9,9 @@ const jwt = require('jsonwebtoken');
 // @access Public
 const signUp = asyncHandler(async (req, res) => {
 
-  const { userId, email, password, type, securityQuestion, securityAnswer } = req.body;
+  const { userId, email } = req.body;
 
-  if (!userId || !email || !password || !type || !securityQuestion || !securityAnswer) {
+  if (!userId || !email) {
     res.status(400);
     throw new Error ('Please fill in all fields');
   }
@@ -23,17 +23,11 @@ const signUp = asyncHandler(async (req, res) => {
   }
 
   const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
-  const hashedAnswer = await bcrypt.hash(securityAnswer, salt);
 
   const user = await User.create({
     userId,
     name: userId,
     email,
-    password: hashedPassword,
-    type,
-    securityQuestion,
-    securityAnswer: hashedAnswer
   });
 
   if (user) {
@@ -52,7 +46,7 @@ const logIn = asyncHandler( async (req, res) => {
   const {userId, password} = req.body;
   
   const user = await User.findOne({userId});
-  if (user && (await bcrypt.compare(password, user.password))) {
+  if (user) {
     res.status(200).json({
       message: 'User logged in successfully',
       userId: user.userId,
@@ -131,72 +125,10 @@ const updateUser = asyncHandler(async (req, res) => {
   res.status(200).json({message: 'User updated successfully', updatedUser});
 });
 
-
-// @desc Get security question
-// @route GET /api/users/security-question/:userId
-// @access Public
-const getSecurityQuestion = asyncHandler(async (req, res) => {
-  const userId = req.params.userId;
-  const user = await User.findOne({ userId });
-
-  if (!user) {
-    res.status(400);
-    throw new Error('User ID not found');
-  }
-
-  res.status(200).json({ securityQuestion: user.securityQuestion });
-});
-
-const verifySecurityAnswer = asyncHandler(async (req, res) => {
-  const { userId, securityAnswer } = req.body;
-  const user = await User.findOne({ userId });
-
-  if (!user) {
-    res.status(400);
-    throw new Error('User ID not found');
-  }
-
-  const isMatch = await bcrypt.compare(securityAnswer, user.securityAnswer);
-  if (!isMatch) {
-    res.status(400);
-    throw new Error('Security answer is incorrect');
-  }
-
-  res.status(200).json({ message: 'Security answer verified' });
-});
-
-// @desc Reset Password
-// @route POST /api/users/reset-password
-// @access Public
-const resetPassword = asyncHandler(async (req, res) => {
-  const { userId, newPassword } = req.body;
-  const user = await User.findOne({ userId });
-
-  if (!user) {
-    res.status(400);
-    throw new Error('User ID not found');
-  }
-
-  // Hash new password
-  const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(newPassword, salt);
-  await user.save();
-
-  res.status(200).json({ message: 'Password reset successful' });
-});
-
 const generateToken = (id) => {
   return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: '30d',});
 };
 
-const comparePasswords = (password, hash) => {
-  return new Promise((resolve, reject) => {
-    bcrypt.compare(password, hash, (err, result) => {
-      if (err) return reject(err);
-      resolve(result);
-    });
-  });
-};
 
 module.exports = {
   signUp,
@@ -204,7 +136,4 @@ module.exports = {
   getMyInfo,
   getAllUsers,
   updateUser,
-  getSecurityQuestion,
-  verifySecurityAnswer,
-  resetPassword
 };

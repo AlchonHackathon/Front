@@ -19,7 +19,7 @@ const AdminDashboard = () => {
 
     const fetchUser = async () => {
         try {
-            const response = await axios.get(`${USER_URL}/me`, {
+            const response = await axios.get(`${USERS_URL}/me`, {
                 signal: controller.signal,
                 headers: headers,
             });

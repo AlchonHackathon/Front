@@ -17,6 +17,7 @@
   flex-direction: column;
   width: 100%;
 }
+
 .userDashboard-header {
   background-color: #004d00;
   color: white;
@@ -24,34 +25,40 @@
   text-align: center;
   margin: 20px 20px 10px 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .userDashboard-panel {
   background-color: white;
   flex-grow: 1;
   padding: 5px;
   margin: 10px 20px 20px 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   overflow: auto;
 }
+
 .userDashboard-container {
   display: flex;
   justify-content: space-around;
   padding: 20px;
 }
+
 .userDashboard-container.single {
   flex-direction: column;
 }
+
 .userDashboard-box {
   background: white;
   padding: 5px;
   border-radius: 8px;
   margin-bottom: 10px;
 }
+
 .userDashboard-box.incoming {
   padding-top: 1px;
 }
+
 .userDashboard-box.half {
   flex: 1;
 }
@@ -60,14 +67,16 @@
 .userDashboard-box.incoming h3 {
   margin-bottom: 10px;
 }
+
 .userDashboard-button-list {
   max-height: 200px;
   overflow-y: auto;
-} 
+}
 
 .userDashboard-button-list button:hover {
   background-color: #f0f0f0;
 }
+
 .userDashboard-wrapper textarea {
   width: 100%;
   padding: 15px;
@@ -81,6 +90,7 @@
   background-color: #f4f4f4;
   white-space: pre-wrap;
 }
+
 #userDashboard-noteForm button {
   padding: 12px 24px;
   background-color: #004d00;
@@ -90,17 +100,22 @@
   cursor: pointer;
   margin-top: 10px;
 }
+
 #userDashboard-noteForm button:hover {
   background-color: #003300;
 }
+
 .userDashboard-wrapper table {
   width: 100%;
   margin-top: 20px;
 }
-.userDashboard-wrapper th, td {
+
+.userDashboard-wrapper th,
+td {
   text-align: left;
   padding: 10px;
 }
+
 .userDashboard-wrapper th {
   background-color: #ddd;
 }

@@ -2,27 +2,29 @@ const express = require('express');
 const path = require('path');
 const colors = require('colors');
 const dotenv = require('dotenv').config();
-const { errorHandler } = require('./middleware/errorMiddleware');
 const cors = require('cors');
-const port = process.env.PORT || 5000;
-const connectDB = require('./config/db');
+const port = 5050;
 
-connectDB();
 const app = express();
+
+// Placeholder for authentication middleware
+const authMiddleware = (req, res, next) => {
+  // Authentication logic here
+  console.log('Authentication middleware executed');
+  next();
+};
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // Adjust this to your frontend's URL
+  methods: 'GET, POST, PUT, DELETE',
+  allowedHeaders: 'Content-Type, Authorization',
+}));
 
 // Define API routes
 app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/reports', require('./routes/reportRoutes'));
-app.use('/api/uploads', require('./routes/fileRoutes'));
-app.use('/api/mail', require('./routes/mailRoutes'));
-app.use('/api/notes', require('./routes/noteRoutes'));
-app.use('/api/portfolios', require('./routes/portfolioRoutes'));
-app.use('/api/applications', require('./routes/applicationRoutes'));
-app.use('/api/labs', require('./routes/labRoutes'));
+app.use('/api/verification', authMiddleware, require('./routes/verificationRoutes'));
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client', 'build')));
@@ -38,7 +40,5 @@ app.get('*', (req, res) => {
   console.log('Serving index.html for unmatched route');
   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 });
-
-app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

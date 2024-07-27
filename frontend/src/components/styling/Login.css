@@ -35,6 +35,8 @@
 
 .login-form-group {
   margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .login-form-group-b {

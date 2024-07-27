@@ -12,16 +12,18 @@ p {
   display: flex;
   flex-direction: column;
   height: 100%;
-  font-family:'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
   margin: 0;
+  background-color: var(--white);
 }
 
 
 /* TOPBAR */
 .topbar {
-  display: flex;
   flex-direction: row;
   height: 8vh;
+  text-align: center;
+  border-bottom: 1px solid lightgray;
 }
 
 .left-topbar {
@@ -29,8 +31,6 @@ p {
   flex-direction: row;
   padding-left: 2vh;
   padding-right: 15vh;
-  align-items: center;
-  border-bottom: 1px solid lightgray;
 }
 
 .icon-ltb {
@@ -46,6 +46,7 @@ p {
   font-weight: bold;
   width: 100%;
   border-bottom: 1px solid lightgray;
+  background-color: var(--black);
 }
 
 .rtb-title {
@@ -53,7 +54,7 @@ p {
   align-items: center;
   color: var(--green);
   position: relative;
-  right: 30px;
+  
 }
 
 
@@ -72,15 +73,6 @@ p {
   box-sizing: border-box;
 }
 
-/* Lab Searching */
-.labSearchingList {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  padding-top: 20px;
-  width: 250px;
-}
-
 .header-l {
   font-size: 20px;
   font-weight: bold;
@@ -96,7 +88,7 @@ p {
 }
 
 .icon-st {
-  height: 4vh;
+  height: 3vh;
 }
 
 .title-st {
@@ -106,16 +98,10 @@ p {
   font-size: 18px;
 }
 
-.labManagementList {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  padding-top: 60px;
-}
-
 .main {
   display: flex;
   width: 100%;
+  background-color: var(--white);
 }
 
 .subtopic {
@@ -125,7 +111,7 @@ p {
 }
 
 .subtopic:hover {
-  font-weight:bolder;
+  font-weight: bolder;
 }
 
 .subtopic:hover p {
