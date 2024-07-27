@@ -13,6 +13,7 @@ const UserDashboard = () => {
   const USER_URL = '/api/users';
 
   const [user, setUser] = useState({});
+  const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -24,16 +25,22 @@ const UserDashboard = () => {
           headers: headers,
         });
         setUser(response.data.user);
+
+        // Fetch transaction history
+        const transactionsResponse = await axios.get(`${USER_URL}/transactions`, {
+          signal: controller.signal,
+          headers: headers,
+        });
+        setTransactions(transactionsResponse.data.transactions);
+
       } catch (error) {
         if (axios.isCancel(error)) {
-          console.error(`Fetch reports request cancelled`);
-        }
-        else {
-          console.error(`Error getting user:`, error);
+          console.error(`Fetch request cancelled`);
+        } else {
+          console.error(`Error fetching data:`, error);
         }
       }
     };
-
 
     fetchUser();
 
@@ -42,19 +49,33 @@ const UserDashboard = () => {
     };
   }, []);
 
-
-
   return (
-    <div className="UserDashboard-wrapper">
-      <body>
-        <div class="UserDashboard-header">
-          <h1>{user.name}</h1>
+    <div className="userDashboard-wrapper">
+      <div className="userDashboard-panel">
+        <div className="userDashboard-content">
+          <h2>Transaction History</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>To</th>
+                <th>From</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {transactions.map((transaction, index) => (
+                <tr key={index}>
+                  <td>{transaction.to}</td>
+                  <td>{transaction.from}</td>
+                  <td>{transaction.amount}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-        <div class="UserDashboard-panel">
-        </div>
-      </body>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default UserDashboard;

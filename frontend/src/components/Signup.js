@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import './styling/Signup.css';
 
 const validateInput = (user) => {
-  const { userId, email, password, type, securityQuestion, securityAnswer } = user;
-  
-  if (!userId || !email ) {
-    return 'All fields are required';
+  const { name, email } = user;
+
+  if (!name || !email) {
+    return 'Name and email are required';
   }
 
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -20,10 +20,18 @@ const validateInput = (user) => {
 
 const Signup = () => {
   const API_URL = 'https://service-testnet.maschain.com/api/wallet/create-user';
+  const CLIENT_ID = 'dcc67b1d4f9c7db2483e7823e14a4bfb28ee87e96abb857e57febbcba16836db';
+  const CLIENT_SECRET = 'sk_07bdb646220d6ca9081ab8bead4ea41e2c1f0fb0a7ea2d992faa9f119e5a25ba';
 
   const initialState = {
-    userId: '',
+    name: '',
     email: '',
+    // ic: '',
+    // wallet_name: '',
+    // phone: '',
+    // entity_id: '',
+    // entity_category_id: '',
+    // type: ''
   };
 
   const [user, setUser] = useState(initialState);
@@ -54,12 +62,22 @@ const Signup = () => {
 
     try {
       //API_URL/api/wallet/create-user
-      const response = await axios.post(`${API_URL}`, user);
-      alert(response.data.message);
+      const response = await axios.post(
+        `${API_URL}`,
+        user,
+        {
+          headers: {
+            'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET
+          }
+        }
+      );
+      alert('Created account successfully');
       setUser(initialState);
-    } catch (error) {
+     }
+      catch (error) {
       console.error('Error signing up: ', error);
-      alert('Failed to sign up: ' + error.message);
+      alert('Failed to sign up: ' + error.message+user.name+user.email);
     }
   }
 
@@ -98,13 +116,13 @@ const Signup = () => {
           onChange={handleChange}
         />
 
-        <label htmlFor="userId">{getIDLabel()}</label>
+        <label htmlFor="name">{getIDLabel()}</label>
         <input
           type="text"
-          name="userId"
-          id="userId"
+          name="name"
+          id="name"
           placeholder={getIDPlaceholder()}
-          value={user.userId}
+          value={user.name}
           onChange={handleChange}
         />
 

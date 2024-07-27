@@ -3,16 +3,13 @@ const path = require('path');
 const colors = require('colors');
 const dotenv = require('dotenv').config();
 const cors = require('cors');
-const port = 5050;
+const port = 5100;
+const { errorHandler } = require('./middleware/errorMiddleware');
+
+// Connect to the database if using one
+// connectDB();
 
 const app = express();
-
-// Placeholder for authentication middleware
-const authMiddleware = (req, res, next) => {
-  // Authentication logic here
-  console.log('Authentication middleware executed');
-  next();
-};
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -23,8 +20,8 @@ app.use(cors({
 }));
 
 // Define API routes
-app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/verification', authMiddleware, require('./routes/verificationRoutes'));
+app.use('/api/users', require('./routes/userRoutes')); // Add your userRoutes if any
+app.use('/api/verification', require('./routes/verificationRoutes'));
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client', 'build')));
@@ -40,5 +37,7 @@ app.get('*', (req, res) => {
   console.log('Serving index.html for unmatched route');
   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 });
+
+app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

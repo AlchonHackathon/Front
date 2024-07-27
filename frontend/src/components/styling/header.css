@@ -26,35 +26,18 @@ p {
   border-bottom: 1px solid lightgray;
 }
 
-.left-topbar {
-  display: flex;
-  flex-direction: row;
-  padding-left: 2vh;
-  padding-right: 15vh;
-}
-
 .icon-ltb {
   margin-left: 15px;
 }
 
-.right-topbar {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: bold;
-  width: 100%;
-  border-bottom: 1px solid lightgray;
-  background-color: var(--black);
-}
 
 .rtb-title {
   justify-content: center;
   align-items: center;
   color: var(--green);
+  padding-top: 2.5vh;
   position: relative;
-  
+  font-size: 18px;
 }
 
 
@@ -68,7 +51,6 @@ p {
   display: flex;
   flex-direction: column;
   height: 92vh;
-  border-right: 1px solid lightgray;
   padding-right: 10px;
   box-sizing: border-box;
 }
@@ -124,4 +106,16 @@ p {
   display: flex;
   flex-direction: column;
   padding: 10px;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  color: var(--black);
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 1100;
 }

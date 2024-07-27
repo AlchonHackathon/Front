@@ -1,9 +1,11 @@
-// router/verificationRoutes.js
 const express = require('express');
 const router = express.Router();
-const { sendCode, verifyCode } = require('../controllers/verificationController');
+const { sendVerificationCode, verifyCode } = require('../controllers/verificationController');
 
-router.post('/send-code', sendCode);
+// Route for sending verification code
+router.post('/send-code', sendVerificationCode);
+
+// Route for verifying the code
 router.post('/verify-code', verifyCode);
 
 module.exports = router;
