@@ -1,0 +1,161 @@
+.AdminDashboard-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--light-gray);
+}
+
+.AdminDashboard-wrapper body {
+  font-family: Arial, sans-serif;
+  background-color: #e0e0e0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.AdminDashboard-header {
+  background-color: #004d00;
+  color: white;
+  padding: 30px;
+  text-align: center;
+  margin: 20px 20px 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.AdminDashboard-panel {
+  background-color: white;
+  flex-grow: 1;
+  padding: 15px;
+  margin: 10px 20px 20px 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  overflow: auto;
+}
+.AdminDashboard-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  flex-direction: column;
+}
+
+.AdminDashboard-upper-half {
+  display: flex;
+  flex-direction: row;
+  flex: 2;
+}
+
+.AdminDashboard-lower-half {
+  display: flex;
+  flex-direction: row;
+  flex: 3;
+}
+
+.AdminDashboard-upper-half-left {
+  background: white;
+  padding: 5px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding-top: 1px;
+  flex: 1;
+}
+
+.AdminDashboard-upper-half-left h3 {
+  margin-bottom: 10px;
+}
+
+.AdminDashboard-upper-half-right {
+  background: white;
+  padding: 5px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding-top: 1px;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.AdminDashboard-ongoing-apps {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-left: 2px solid black;
+}
+
+.AdminDashboard-ongoing-apps h3,
+.AdminDashboard-lab-slots h3{
+  padding-bottom: 20px;
+}
+
+.AdminDashboard-ongoing-apps h1,
+.AdminDashboard-lab-slots h1{
+  font-size: 48px;
+}
+
+
+.AdminDashboard-lab-slots {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+
+.AdminDashboard-box.half {
+  flex: 1;
+}
+
+.AdminDashboard-box.half h3,
+.AdminDashboard-box.incoming h3 {
+  margin-bottom: 10px;
+}
+.AdminDashboard-button-list {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-right: 20px;
+} 
+
+.AdminDashboard-button-list button:hover {
+  background-color: #f0f0f0;
+}
+.AdminDashboard-wrapper textarea {
+  width: 100%;
+  padding: 15px;
+  margin-top: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  height: 185px;
+  font-size: 16px;
+  background-color: #f4f4f4;
+  white-space: pre-wrap;
+}
+#AdminDashboard-noteForm button {
+  padding: 12px 24px;
+  background-color: #004d00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+#AdminDashboard-noteForm button:hover {
+  background-color: #003300;
+}
+.AdminDashboard-wrapper table {
+  width: 100%;
+  margin-top: 20px;
+}
+.AdminDashboard-wrapper th, td {
+  text-align: left;
+  padding: 10px;
+}
+.AdminDashboard-wrapper th {
+  background-color: #ddd;
+}

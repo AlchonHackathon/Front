@@ -1,0 +1,84 @@
+.Signup-user-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--black);
+}
+
+.Signup-user-body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--black);
+}
+
+.Signup-user-container {
+  background-color: #24272a;
+  padding: 100px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1) inset;
+}
+
+.Signup-user-h1 {
+  color: var(--white);
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+label {
+  color: var(--white);
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  font-size: 14px;
+  border-radius: 3px;
+  box-sizing: border-box
+}
+
+.Signup-user-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.Signup-user-button {
+  background-color: var(--green);
+  color: #fff;
+  padding: 10px 105px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  text-align: center;
+}
+
+.Signup-user-button:hover {
+  opacity: 0.8;
+}
+
+.Signup-user-p{
+  margin-top: 15px;
+text-align: center; 
+}
+
+.Signup-user-a {
+  text-decoration: none;
+  color: var(--white);
+}
+

@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+p {
+  color: var(--green);
+}
+
+.header-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-family:'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+  margin: 0;
+}
+
+
+/* TOPBAR */
+.topbar {
+  display: flex;
+  flex-direction: row;
+  height: 8vh;
+}
+
+.left-topbar {
+  display: flex;
+  flex-direction: row;
+  padding-left: 2vh;
+  padding-right: 15vh;
+  align-items: center;
+  border-bottom: 1px solid lightgray;
+}
+
+.icon-ltb {
+  margin-left: 15px;
+}
+
+.right-topbar {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+}
+
+.rtb-title {
+  justify-content: center;
+  align-items: center;
+  color: var(--green);
+  position: relative;
+  right: 30px;
+}
+
+
+.bottomContent {
+  display: flex;
+  flex-direction: row;
+}
+
+/* SIDEBAR */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 92vh;
+  border-right: 1px solid lightgray;
+  padding-right: 10px;
+  box-sizing: border-box;
+}
+
+/* Lab Searching */
+.labSearchingList {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  padding-top: 20px;
+  width: 250px;
+}
+
+.header-l {
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.subtopic {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.icon-st {
+  height: 4vh;
+}
+
+.title-st {
+  position: relative;
+  top: 1px;
+  padding-left: 12px;
+  font-size: 18px;
+}
+
+.labManagementList {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  padding-top: 60px;
+}
+
+.main {
+  display: flex;
+  width: 100%;
+}
+
+.subtopic {
+  text-decoration: none;
+  color: black;
+  transition: font-weight 0.1s ease-in-out;
+}
+
+.subtopic:hover {
+  font-weight:bolder;
+}
+
+.subtopic:hover p {
+  display: inline-block;
+  transition: transform 0.1s ease-in-out
+}
+
+
+.List {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
