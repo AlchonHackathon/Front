@@ -1,6 +1,6 @@
-# Main React Project
+# Block School Chain
 
-Welcome to the Main React Project! This guide will help you set up and run the application on your local machine.
+Welcome to the Block School Chain! This guide will help you set up and run the application on your local machine.
 
 ## Prerequisites
 
