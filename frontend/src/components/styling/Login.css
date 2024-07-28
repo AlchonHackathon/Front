@@ -60,12 +60,25 @@
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"],
+select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: none;
+  border-bottom: 2px solid var(--light-gray);
   border-radius: 3px;
   box-sizing: border-box;
+  text-align: center;
+  background-color: transparent;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  font-size: large;
+  color: var(--white);
+}
+
+select option {
+  background: var(--black);
 }
 
 .login-forgot-password {

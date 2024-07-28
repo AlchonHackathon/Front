@@ -3,14 +3,7 @@ const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 
-const authMiddleware = (req, res, next) => {
-  const token = req.headers['authorization'];
-  if (token) {
-      next();
-  } else {
-      res.status(403).json({ message: 'Forbidden' });
-  }
-};
+
 
 const protect = asyncHandler(async (req, res, next) => {
   let token;

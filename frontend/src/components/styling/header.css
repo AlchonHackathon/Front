@@ -1,3 +1,4 @@
+/* General styles */
 * {
   margin: 0;
   padding: 0;
@@ -5,60 +6,69 @@
 }
 
 p {
-  color: var(--green);
+  color: var(--white);
 }
 
 .header-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh; /* Ensure the wrapper takes the full viewport height */
   font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
-  margin: 0;
   background-color: var(--white);
 }
 
-
 /* TOPBAR */
 .topbar {
-  flex-direction: row;
+  background-color: #24272a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   height: 8vh;
-  text-align: center;
-  border-bottom: 1px solid lightgray;
+  padding: 0 15px;
 }
-
-.icon-ltb {
-  margin-left: 15px;
-}
-
 
 .rtb-title {
-  justify-content: center;
-  align-items: center;
-  color: var(--green);
-  padding-top: 2.5vh;
-  position: relative;
+  color: var(--white);
   font-size: 18px;
 }
 
+.menu-btn {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 24px;
+  cursor: pointer;
+}
 
+/* BOTTOM CONTENT */
 .bottomContent {
   display: flex;
-  flex-direction: row;
+  flex-grow: 1;
+  transition: all 0.3s ease;
 }
 
 /* SIDEBAR */
 .sidebar {
   display: flex;
   flex-direction: column;
-  height: 92vh;
+  height: calc(100vh - 8vh); /* 100% height minus topbar height */
+  width: 250px;
   padding-right: 10px;
   box-sizing: border-box;
+  background-color: #24272a;
+  color: var(--white);
 }
 
-.header-l {
-  font-size: 20px;
-  font-weight: bold;
-  text-decoration: underline;
+/* MAIN CONTENT */
+.main {
+  display: flex;
+  flex-grow: 1;
+  height: calc(100vh - 8vh); /* 100% height minus topbar height */
+  transition: margin-left 0.3s ease;
+}
+
+.main.full-height {
+  height: calc(100vh - 8vh); /* Ensure full height minus topbar height */
 }
 
 .subtopic {
@@ -78,44 +88,4 @@ p {
   top: 1px;
   padding-left: 12px;
   font-size: 18px;
-}
-
-.main {
-  display: flex;
-  width: 100%;
-  background-color: var(--white);
-}
-
-.subtopic {
-  text-decoration: none;
-  color: black;
-  transition: font-weight 0.1s ease-in-out;
-}
-
-.subtopic:hover {
-  font-weight: bolder;
-}
-
-.subtopic:hover p {
-  display: inline-block;
-  transition: transform 0.1s ease-in-out
-}
-
-
-.List {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-}
-
-.menu-btn {
-  background: none;
-  border: none;
-  color: var(--black);
-  font-size: 24px;
-  cursor: pointer;
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  z-index: 1100;
 }

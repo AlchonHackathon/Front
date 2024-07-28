@@ -3,36 +3,36 @@ const path = require('path');
 const colors = require('colors');
 const dotenv = require('dotenv').config();
 const cors = require('cors');
-const port = 5100;
+const mongoose = require('mongoose');
+const port = process.env.PORT || 5100;
 const { errorHandler } = require('./middleware/errorMiddleware');
-
-// Connect to the database if using one
-// connectDB();
+const connectDB = require('./config/db')
 
 const app = express();
 
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'client_id', 'client_secret']
+};
+
+// Middleware setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors({
-  origin: 'http://localhost:3000', // Adjust this to your frontend's URL
-  methods: 'GET, POST, PUT, DELETE',
-  allowedHeaders: 'Content-Type, Authorization',
-}));
+app.use(cors(corsOptions));
 
-// Define API routes
-app.use('/api/users', require('./routes/userRoutes')); // Add your userRoutes if any
+connectDB();
+
+app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/verification', require('./routes/verificationRoutes'));
 
-// Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
-// Log each request to the server
 app.use((req, res, next) => {
   console.log(`Request received: ${req.method} ${req.url}`);
   next();
 });
 
-// Catch-all handler to serve index.html for any request that doesn't match above
 app.get('*', (req, res) => {
   console.log('Serving index.html for unmatched route');
   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));

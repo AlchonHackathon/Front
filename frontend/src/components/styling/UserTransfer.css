@@ -1,0 +1,41 @@
+.token-transfer-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--black);
+  }
+
+  .token-transfer-container {
+    height: 75dvh;
+    width: auto;
+    background-color: #24272a;
+    color: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+  }
+
+  .token-transfer-container h1 {
+    margin-bottom: 1rem;
+  }
+
+  .token-transfer-container label{
+    margin-top: 2rem;
+  }
+
+  .token-transfer-container select,
+  .token-transfer-container input[type=number] {
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+
+  .token-transfer-container button {
+    background-color: var(--green);
+    color: var(--white);
+    padding: 0.5rem 2rem;
+    border-radius: 5px;
+    margin-top: 2rem;
+    justify-content: center;
+    align-items: center;
+  }

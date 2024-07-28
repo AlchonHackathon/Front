@@ -42,6 +42,7 @@ const sendVerificationCode = async (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error('Error sending email:', error);
+      console.error('Response data:', error.response?.data); 
       return res.status(500).json({ message: 'Failed to send verification code' });
     }
     console.log('Email sent:', info.response);
@@ -70,7 +71,7 @@ const verifyCode = async (req, res) => {
   // Verification successful, clear the stored code
   delete verificationCodes[email];
 
-  res.status(200).json({ message: 'Verification successful' });
+  return res.status(200).json({ message: 'Verification successful' });
 };
 
 module.exports = {

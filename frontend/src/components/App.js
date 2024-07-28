@@ -3,12 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { currentLinkAction } from '../actions';
 
+
 import './styling/header.css';
 import './styling/template.css';
 
 import UserHeader from './UserHeader';
 import AdminHeader from './AdminHeader';
 import SignLogRouter from './SignLogRouter';
+
 
 class App extends React.Component {
   componentDidMount() {
@@ -18,7 +20,9 @@ class App extends React.Component {
   }
 
   renderHeader = () => {
+    console.log("Hello");
     const { currentLinkState } = this.props;
+    console.log(currentLinkState);
     if (typeof currentLinkState === 'string') {
       if (currentLinkState.startsWith('user-')) {
         return <UserHeader />;
@@ -38,6 +42,8 @@ class App extends React.Component {
       </Router>
     );
   }
+
+  
 }
 
 const mapStateToProps = (state) => {

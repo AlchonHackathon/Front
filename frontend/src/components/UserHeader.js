@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { currentLinkAction } from '../actions';
 import './styling/header.css';
-import home from '../icons/home.png';
-import nft from '../icons/nft.png';
-import Sidebar from './Sidebar'
+import Sidebar from './Sidebar';
 
 // Importing components
 import UserDashboard from './UserDashboard';
@@ -49,8 +47,8 @@ class UserHeader extends React.Component {
   getTitle = () => {
     const { currentLinkState } = this.props;
     const titles = {
-      'User-dashboard': 'Dashboard',
-      'User-transfer': 'Transfer Tokens',
+      'user-dashboard': 'Dashboard',
+      'user-transfer': 'Transfer Tokens',
     };
     return titles[currentLinkState] || 'Dashboard';
   }
@@ -80,7 +78,7 @@ class UserHeader extends React.Component {
               />
             </div>
           )}
-          <div className="main">
+          <div className={`main ${this.state.isSidebarVisible ? '' : 'full-height'}`}>
             <Routes>
               <Route path="/user-dashboard" element={<UserDashboard />} />
               <Route path="/user-transfer" element={<UserTransfer />} />

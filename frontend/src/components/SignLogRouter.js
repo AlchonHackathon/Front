@@ -16,9 +16,9 @@ class SignLogRouter extends React.Component {
       // <Router>
         <div className="wrapper">
             <Routes>
-                <Route path="/login" element={<Login/>} />
-                <Route path="/signup" element = {<Signup/>} />
-                <Route path="/forgot-password" element = {<ForgetPassword/>} />
+                <Route path="/login/" element={<Login/>} />
+                <Route path="/signup/" element = {<Signup/>} />
+                <Route path="/forgot-password/" element = {<ForgetPassword/>} />
                 <Route path="/" element={<Navigate to="/login" />} />
 
             </Routes>

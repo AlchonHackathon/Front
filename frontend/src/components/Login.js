@@ -3,8 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './styling/Login.css';
 import ErrorModal from './ErrorModal'; // Import ErrorModal
+import { connect } from 'react-redux';
+import { currentLinkAction } from '../actions'; // Import the action
 
-const Login = () => {
+const Login = ({ currentLinkAction }) => {
   const [email, setEmail] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const [isCodeSent, setIsCodeSent] = useState(false);
@@ -14,25 +16,29 @@ const Login = () => {
 
   const handleSendCode = async () => {
     try {
-        const response = await axios.post('/api/verification/send-code', { email });
-        alert(response.data.message);
-        setIsCodeSent(true);
+      const response = await axios.post('api/verification/send-code', { email });
+      alert(response.data.message);
+      setIsCodeSent(true);
     } catch (error) {
-        console.error('Error sending code:', error);
-        setError('Failed to send code: ' + (error.response?.data?.message || error.message));
-        setIsErrorModalOpen(true); // Show ErrorModal
+      console.error('Error sending code:', error);
+      console.error('Response status:', error.response?.status); // Check response status
+      console.error('Response data:', error.response?.data);   // Check response data
+      setError('Failed to send code: ' + (error.response?.data?.message || error.message));
+      setIsErrorModalOpen(true);
     }
-};
+  };
 
   const handleVerifyCode = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/verification/verify-code', { email, code: verificationCode });
+      const response = await axios.post('api/verification/verify-code', { email, code: verificationCode });
 
-      if (response.data.message === 'Verification successful.') {
-        localStorage.setItem('email', email); // Store email or token as needed
-        navigate('/user-dashboard');
+      if (response.data.message === 'Verification successful') {
+        console.log(response.data.message);
+        //localStorage.setItem('email', email); // Store email or token as needed
+        currentLinkAction('user-dashboard'); // Update the current link state
+        navigate("/user-dashboard");
       } else {
         throw new Error(response.data.message);
       }
@@ -50,12 +56,11 @@ const Login = () => {
           <h1 className='login-h1'>Login</h1>
           {!isCodeSent ? (
             <div className="login-form-group">
-              <label className='login-label login-left' htmlFor="email">Email</label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                placeholder="Enter your email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -87,4 +92,9 @@ const Login = () => {
   );
 };
 
-export default Login;
+// Map dispatch to props to connect currentLinkAction
+const mapDispatchToProps = {
+  currentLinkAction,
+};
+
+export default connect(null, mapDispatchToProps)(Login);

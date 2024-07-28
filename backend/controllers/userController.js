@@ -5,37 +5,57 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 // @desc Sign up
-// @route GET /api/users/signup
+// @route POST /api/users/signup
 // @access Public
 const signUp = asyncHandler(async (req, res) => {
+  console.log("Masuk");
+  const { type, name, email } = req.body;
 
-  const { userId, email } = req.body;
-
-  if (!userId || !email) {
+  if (!type || !name || !email) {
     res.status(400);
-    throw new Error ('Please fill in all fields');
+    throw new Error('Please fill in all fields');
   }
 
-  const existingUser = await User.findOne({ userId });
+  const existingUser = await User.findOne({ email });
   if (existingUser) {
     res.status(400);
     throw new Error('User already exists');
   }
 
-  const salt = await bcrypt.genSalt(10);
+  try {
+    const API_URL = 'https://service-testnet.maschain.com/api/wallet/create-user';
+    const CLIENT_ID = 'dcc67b1d4f9c7db2483e7823e14a4bfb28ee87e96abb857e57febbcba16836db';
+    const CLIENT_SECRET = 'sk_07bdb646220d6ca9081ab8bead4ea41e2c1f0fb0a7ea2d992faa9f119e5a25ba';
 
-  const user = await User.create({
-    userId,
-    name: userId,
-    email,
-  });
+    const response = await axios.post(
+      `${API_URL}`,
+      { type, name, email },
+      {
+        headers: {
+          'client_id': CLIENT_ID,
+          'client_secret': CLIENT_SECRET,
+        }
+      }
+    );
 
-  if (user) {
-    res.status(201).json({message: 'User created successfully', user});
-  }
-  else {
-    res.status(400);
-    throw new Error ('Invalid user data');
+    const walletAddress = response.data.wallet.wallet_address;
+
+    const user = await User.create({
+      type,
+      name,
+      email,
+      walletAddress,
+    });
+
+    if (user) {
+      res.status(201).json({ message: 'User created successfully', user });
+    } else {
+      res.status(400);
+      throw new Error('Invalid user data');
+    }
+  } catch (error) {
+    res.status(500);
+    throw new Error('Error creating user: ' + error.message);
   }
 });
 

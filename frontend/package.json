@@ -1,7 +1,7 @@
 {
   "name": "lab-uni",
   "version": "0.1.0",
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:5100",
   "private": true,
   "homepage": "/",
   "dependencies": {
